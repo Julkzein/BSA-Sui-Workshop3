@@ -4,25 +4,35 @@ module publisher::hero {
 
     const EWrongPublisher: u64 = 1;
 
+    public struct HERO has drop {}
+
     public struct Hero has key {
         id: UID,
         name: String,
     }
 
-    fun init(ctx: &mut TxContext) {
+    fun init(otw: HERO, ctx: &mut TxContext) {
         // create Publisher and transfer it to the publisher wallet
+        package::claim_and_keep(otw, ctx)
     }
 
     public fun create_hero(publisher: &Publisher, name: String, ctx: &mut TxContext): Hero {
         // verify that publisher is from the same module
-
+        assert!(publisher.from_module<HERO>(), EWrongPublisher); 
         // create Hero resource
+        let hero = Hero {
+            id: object::new(ctx),
+            name,
+        };
+
+        hero
     }
 
     public fun transfer_hero(publisher: &Publisher, hero: Hero, to: address) {
         // verify that publisher is from the same module
-
+        assert!(publisher.from_module<HERO>(), EWrongPublisher); 
         // transfer the Hero resource to the user
+        transfer::transfer(hero, to)
     }
 
     // ===== TEST ONLY =====

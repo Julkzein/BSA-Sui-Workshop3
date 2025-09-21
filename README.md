@@ -68,7 +68,7 @@ The capability module demonstrates access control using a capability pattern:
 - The Capability pattern allows for **multiple** authorized entities through delegation.
 - Publisher requires verification of module origin, while Capability relies on object ownership.
 
-## Hot Potato Patern 
+## Hot Potato Pattern 
 The hot potato pattern demonstrates transaction-level obligation enforcement using structs without abilities:
 
 - **Struct without abilities**: Uses a struct with no key, store, copy, or drop abilities, creating an obligation that must be fulfilled within the transaction.
